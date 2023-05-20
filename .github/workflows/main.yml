@@ -55,15 +55,16 @@ jobs:
           restore-keys: |
             Library-test-project-
             Library-
+
       - name: Download project
         uses: actions/download-artifact@v2
         with:
           name: project
+
       - uses: game-ci/unity-test-runner@v2
         id: testRunner
         with:
           testMode: ${{ matrix.testMode }}
-          checkName: ${{ matrix.testMode }} test results
           githubToken: ${{ secrets.WORKFLOW_TOKEN }}
 
       - uses: actions/upload-artifact@v2
@@ -74,7 +75,7 @@ jobs:
   buildWebGL:
     if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
     needs: [setupJob, testRunner]
-    name: Build for Android 📱
+    name: Build for WebGL 📱
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -91,7 +92,7 @@ jobs:
   buildWindows:
     if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
     needs: [setupJob, testRunner]
-    name: Build for Android 📱
+    name: Build for Windows 📱
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
