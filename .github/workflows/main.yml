@@ -98,6 +98,15 @@ jobs:
     strategy:
       fail-fast: false
     steps:
+      - name: Restore Library cache
+        uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-test-project-${{ matrix.testMode }}
+          restore-keys: |
+            Library-test-project-
+            Library-
+
       - name: Download project
         uses: actions/download-artifact@v3
         with:
@@ -217,7 +226,7 @@ jobs:
           folder: build/WebGL
 
   deployItchIO:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/release') # Runs only if the commit is tagged with 'release'
+    if: github.event_name == 'release' && github.event.action == 'published'
     needs: [buildWebGL, buildAndroid, buildMac, buildWindows, zip-files]
     runs-on: ubuntu-latest
     strategy:
