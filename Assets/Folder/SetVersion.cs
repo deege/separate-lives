@@ -1,23 +1,25 @@
+using System;
+using UnityEngine;
 using UnityEditor;
-using System.Linq;
 
 public class SetVersion
 {
-    public static void ApplyVersion()
+    [MenuItem("Tools/Set Version")]
+    public static void SetGameVersion()
     {
-        string[] args = System.Environment.GetCommandLineArgs();
+        string major = Environment.GetEnvironmentVariable("MAJOR_VERSION");
+        string minor = Environment.GetEnvironmentVariable("MINOR_VERSION");
+        string patch = Environment.GetEnvironmentVariable("PATCH_VERSION");
 
-        string versionArg = args.FirstOrDefault(arg => arg.StartsWith("-version="));
-        if (versionArg != null)
+        if (major != null && minor != null && patch != null)
         {
-            string version = versionArg.Split('=')[1];
-            PlayerSettings.bundleVersion = version;
-            Debug.Log($"Set bundle version to: {version}");
-
-            // Optional: Set specific version settings for different platforms
-            // For example, for Windows Store Apps (UWP):
-            Version newVersion = new Version(version);
-            PlayerSettings.WSA.packageVersion = newVersion;
+            Version version = new Version(int.Parse(major), int.Parse(minor), int.Parse(patch));
+            PlayerSettings.bundleVersion = version.ToString();
+            Debug.Log($"Set version to {version}");
+        }
+        else
+        {
+            Debug.LogError("Could not set version, environment variables not found");
         }
     }
 }
