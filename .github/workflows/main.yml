@@ -65,6 +65,10 @@ jobs:
   buildWebGL:
     if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
     needs: [setupJob, testRunner]
+    name: Build for Android 📱
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
     steps:
       - uses: game-ci/unity-builder@v2
         with:
@@ -78,6 +82,10 @@ jobs:
   buildWindows:
     if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
     needs: [setupJob, testRunner]
+    name: Build for Android 📱
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
     steps:
       - uses: game-ci/unity-builder@v2
         with:
@@ -91,6 +99,10 @@ jobs:
   buildMac:
     if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
     needs: [setupJob, testRunner]
+    name: Build for Android 📱
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
     steps:
       - uses: game-ci/unity-builder@v2
         with:
@@ -104,11 +116,14 @@ jobs:
   buildAndroid:
     if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
     needs: [setupJob, testRunner]
+    name: Build for Android 📱
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
     steps:
-       - uses: game-ci/unity-builder@v2
+      - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: Android
-
       - uses: actions/upload-artifact@v2
         with:
           name: android
@@ -117,6 +132,10 @@ jobs:
   zip-files:
     if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
     needs: buildWebGL
+    name: Build for Android 📱
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - uses: papeloto/action-zip@v1
