@@ -115,6 +115,8 @@ jobs:
           name: project
 
       - uses: game-ci/unity-builder@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           targetPlatform: WebGL
           customParameters: "-executeMethod SetVersion.SetGameVersion -version=${{ env.VERSION }}"
