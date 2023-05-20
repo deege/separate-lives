@@ -61,16 +61,17 @@ jobs:
         with:
           name: project
 
-      - uses: game-ci/unity-test-runner@v2
-        id: testRunner
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          testMode: ${{ matrix.testMode }}
           githubToken: ${{ secrets.WORKFLOW_TOKEN }}
 
       - uses: actions/upload-artifact@v2
         with:
-          name: Test results (${{ matrix.testMode }})
-          path: ${{ steps.testRunner.outputs.artifactsPath }}
+          name: Build
+          path: build
 
   buildWebGL:
     if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
