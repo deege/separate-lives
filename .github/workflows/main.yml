@@ -24,8 +24,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          persist-credentials: false
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -50,6 +48,8 @@ jobs:
           path: .
 
       - name: Create and push tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "PATCH_VERSION=${GITHUB_SHA::7}" >> $GITHUB_ENV
           echo "VERSION=${{ secrets.MAJOR_VERSION }}.${{ secrets.MINOR_VERSION }}.${{ env.PATCH_VERSION }}" >> $GITHUB_ENV
