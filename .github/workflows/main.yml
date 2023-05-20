@@ -4,9 +4,19 @@ on:
   push:
     branches:
       - master
+  release:
+    types:
+      - published
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version"
+        required: true
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  MAJOR: ${{ secrets.MAJOR_VERSION }}
+  MINOR: ${{ secrets.MINOR_VERSION }}
 
 jobs:
   setupJob: # new job to handle the common setup steps
@@ -37,6 +47,13 @@ jobs:
           name: project
           path: .
 
+      - name: Create and push tag
+        run: |
+          echo "PATCH_VERSION=${GITHUB_SHA::7}" >> $GITHUB_ENV
+          echo "VERSION=${{ secrets.MAJOR_VERSION }}.${{ secrets.MINOR_VERSION }}.${{ env.PATCH_VERSION }}" >> $GITHUB_ENV
+          git tag $VERSION
+          git push origin $VERSION
+
   testRunner:
     needs: setupJob
     name: Test in ${{ matrix.testMode }} ✨
@@ -61,14 +78,7 @@ jobs:
         with:
           name: project
 
-      # - name: Run tests
-      #   uses: game-ci/unity-test-runner@v3
-      #   env:
-      #     UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-      #   with:
-      #     githubToken: ${{ secrets.WORKFLOW_TOKEN }}
-
-      - name: Run tests all
+      - name: Run tests
         uses: game-ci/unity-test-runner@v2
         id: testRunner
         with:
@@ -81,7 +91,7 @@ jobs:
           path: ${{ steps.testRunner.outputs.artifactsPath }}
 
   buildWebGL:
-    if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
+    if: github.ref == 'refs/heads/master' # this condition ensures the job only runs when the commit is on the main branch
     needs: [setupJob, testRunner]
     name: Build for WebGL 📱
     runs-on: ubuntu-latest
@@ -91,6 +101,7 @@ jobs:
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: WebGL
+          customParameters: "-executeMethod SetVersion.ApplyVersion -version=${{ env.VERSION }}"
 
       - uses: actions/upload-artifact@v3
         with:
@@ -98,7 +109,7 @@ jobs:
           path: build/WebGL
 
   buildWindows:
-    if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
+    if: github.event_name == 'release' && github.event.action == 'published' # this condition ensures the job only runs when the commit is on the main branch
     needs: [setupJob, testRunner]
     name: Build for Windows 📱
     runs-on: ubuntu-latest
@@ -108,6 +119,7 @@ jobs:
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneWindows64
+          customParameters: "-executeMethod SetVersion.ApplyVersion -version=${{ env.VERSION }}"
 
       - uses: actions/upload-artifact@v3
         with:
@@ -115,7 +127,7 @@ jobs:
           path: build/StandaloneWindows64
 
   buildMac:
-    if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
+    if: github.event_name == 'release' && github.event.action == 'published' # this condition ensures the job only runs when the commit is on the main branch
     needs: [setupJob, testRunner]
     name: Build for Mac 📱
     runs-on: ubuntu-latest
@@ -125,6 +137,7 @@ jobs:
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneOSX
+          customParameters: "-executeMethod SetVersion.ApplyVersion -version=${{ env.VERSION }}"
 
       - uses: actions/upload-artifact@v3
         with:
@@ -132,7 +145,7 @@ jobs:
           path: build/StandaloneOSX
 
   buildAndroid:
-    if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
+    if: github.event_name == 'release' && github.event.action == 'published' # this condition ensures the job only runs when the commit is on the main branch
     needs: [setupJob, testRunner]
     name: Build for Android 📱
     runs-on: ubuntu-latest
@@ -142,13 +155,15 @@ jobs:
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: Android
+          customParameters: "-executeMethod SetVersion.ApplyVersion -version=${{ env.VERSION }}"
+
       - uses: actions/upload-artifact@v3
         with:
           name: android
           path: build/Android
 
   zip-files:
-    if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
+    if: github.ref == 'refs/heads/master' # this condition ensures the job only runs when the commit is on the main branch
     needs: buildWebGL
     name: Build for Android 📱
     runs-on: ubuntu-latest
@@ -162,7 +177,7 @@ jobs:
           dest: build/Zip/${{ secrets.ITCH_GAME_ID }}-webgl.zip
 
   deployPages:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/release') # Runs only if the commit is tagged with 'release'
+    if: github.ref == 'refs/heads/master'
     needs: buildWebGL
     name: Deploy to Github Pages 🚀
     runs-on: ubuntu-latest
@@ -206,4 +221,4 @@ jobs:
           itchUsername: ${{secrets.ITCH_IO_USERNAME}}
           itchGameId: ${{ secrets.ITCH_GAME_ID }}
           buildChannel: ${{ matrix.channel }}
-          buildNumber: ${{ needs.version.outputs.version_hash }}
+          buildNumber: ${{ env.VERSION }}
