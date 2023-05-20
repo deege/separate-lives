@@ -100,6 +100,15 @@ jobs:
     strategy:
       fail-fast: false
     steps:
+      - name: Restore Library cache
+        uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-test-project-${{ matrix.testMode }}
+          restore-keys: |
+            Library-test-project-
+            Library-
+
       - name: Download project
         uses: actions/download-artifact@v3
         with:
