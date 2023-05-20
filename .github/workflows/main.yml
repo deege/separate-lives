@@ -68,7 +68,7 @@ jobs:
       #   with:
       #     githubToken: ${{ secrets.WORKFLOW_TOKEN }}
 
-      - name: Run tests
+      - name: Run tests all
         uses: game-ci/unity-test-runner@v2
         id: testRunner
         with:
