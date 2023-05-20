@@ -17,6 +17,8 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
   MAJOR: ${{ secrets.MAJOR_VERSION }}
   MINOR: ${{ secrets.MINOR_VERSION }}
+  UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+  UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
 
 jobs:
   setupJob: # new job to handle the common setup steps
@@ -115,8 +117,6 @@ jobs:
           name: project
 
       - uses: game-ci/unity-builder@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           targetPlatform: WebGL
           customParameters: "-executeMethod SetVersion.SetGameVersion -version=${{ env.VERSION }}"
