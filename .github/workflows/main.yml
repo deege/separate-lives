@@ -69,7 +69,7 @@ jobs:
       #     githubToken: ${{ secrets.WORKFLOW_TOKEN }}
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v3
+        uses: game-ci/unity-test-runner@v2
         id: testRunner
         with:
           testMode: ${{ matrix.testMode }}
