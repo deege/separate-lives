@@ -9,7 +9,7 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
-  setupJob:  # new job to handle the common setup steps
+  setupJob: # new job to handle the common setup steps
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -31,6 +31,12 @@ jobs:
           git add .
           git reset --hard
 
+      - name: Archive project
+        uses: actions/upload-artifact@v2
+        with:
+          name: project
+          path: .
+
   testRunner:
     needs: setupJob
     name: Test in ${{ matrix.testMode }} ✨
@@ -49,7 +55,10 @@ jobs:
           restore-keys: |
             Library-test-project-
             Library-
-
+      - name: Download project
+        uses: actions/download-artifact@v2
+        with:
+          name: project
       - uses: game-ci/unity-test-runner@v2
         id: testRunner
         with:
