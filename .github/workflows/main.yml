@@ -115,7 +115,7 @@ jobs:
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: WebGL
-          customParameters: "-executeMethod SetVersion.ApplyVersion -version=${{ env.VERSION }}"
+          customParameters: "-executeMethod SetVersion.SetGameVersion -version=${{ env.VERSION }}"
 
       - uses: actions/upload-artifact@v3
         with:
@@ -138,7 +138,7 @@ jobs:
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneWindows64
-          customParameters: "-executeMethod SetVersion.ApplyVersion -version=${{ env.VERSION }}"
+          customParameters: "-executeMethod SetVersion.SetGameVersion -version=${{ env.VERSION }}"
 
       - uses: actions/upload-artifact@v3
         with:
@@ -161,7 +161,7 @@ jobs:
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneOSX
-          customParameters: "-executeMethod SetVersion.ApplyVersion -version=${{ env.VERSION }}"
+          customParameters: "-executeMethod SetVersion.SetGameVersion -version=${{ env.VERSION }}"
 
       - uses: actions/upload-artifact@v3
         with:
@@ -184,7 +184,7 @@ jobs:
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: Android
-          customParameters: "-executeMethod SetVersion.ApplyVersion -version=${{ env.VERSION }}"
+          customParameters: "-executeMethod SetVersion.SetGameVersion -version=${{ env.VERSION }}"
 
       - uses: actions/upload-artifact@v3
         with:
