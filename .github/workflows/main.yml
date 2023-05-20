@@ -99,7 +99,7 @@ jobs:
   buildMac:
     if: github.ref == 'refs/heads/main' # this condition ensures the job only runs when the commit is on the main branch
     needs: [setupJob, testRunner]
-    name: Build for Android 📱
+    name: Build for Mac 📱
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
