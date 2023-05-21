@@ -1,4 +1,4 @@
-using Deege.Events.Player;
+
 using UnityEngine;
 
 namespace Deege.Game
@@ -8,7 +8,7 @@ namespace Deege.Game
     {
         override public void Apply(GameObject target)
         {
-            PlayerOneUpPowerupEvent.Trigger("1Up power up");
+            // PlayerOneUpPowerupEvent.Trigger("1Up power up");
         }
 
         public override void Remove(GameObject target)

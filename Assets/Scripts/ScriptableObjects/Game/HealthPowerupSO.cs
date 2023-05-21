@@ -1,4 +1,4 @@
-using Deege.Events.Player;
+
 using UnityEngine;
 
 namespace Deege.Game
@@ -10,7 +10,7 @@ namespace Deege.Game
 
         override public void Apply(GameObject target)
         {
-            PlayerHealthPowerupEvent.Trigger("Health power up", HealthBuff);
+            // PlayerHealthPowerupEvent.Trigger("Health power up", HealthBuff);
         }
 
         public override void Remove(GameObject target)

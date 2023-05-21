@@ -1,4 +1,4 @@
-using Deege.Events.Score;
+
 using UnityEngine;
 
 namespace Deege.Game
@@ -9,7 +9,7 @@ namespace Deege.Game
         public int Points = 0;
         override public void Apply(GameObject target)
         {
-            AddScoreEvent.Trigger("Points Collected Score Event", Points);
+            // AddScoreEvent.Trigger("Points Collected Score Event", Points);
         }
 
         public override void Remove(GameObject target)
