@@ -102,6 +102,9 @@ jobs:
     strategy:
       fail-fast: false
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Restore Library cache
         uses: actions/cache@v3
         with:
@@ -115,6 +118,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: project
+          path: .
 
       - uses: game-ci/unity-builder@v2
         with:
