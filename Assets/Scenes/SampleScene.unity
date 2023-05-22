@@ -731,6 +731,7 @@ GameObject:
   - component: {fileID: 756626474}
   - component: {fileID: 756626473}
   - component: {fileID: 756626475}
+  - component: {fileID: 756626476}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -865,6 +866,45 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &756626476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756626467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611a43f343f1940c3a0f2592332a0d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHealth: {fileID: 0}
+  MaxHealth:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  OnEntityHitEvent: {fileID: 0}
+  OnEntityDiedEvent: {fileID: 0}
+  PlayerLivesChannel: {fileID: 0}
+  MaxPlayerLives:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  OnPlayerHealth: {fileID: 0}
+  OnPlayerHitEvent: {fileID: 0}
+  OnPlayerDeathEvent: {fileID: 0}
+  OnEntityDeathEvent: {fileID: 0}
+  OnPlayerGameResetEvent: {fileID: 0}
+  OnPlayerHealthEvent: {fileID: 0}
+  OnPlayerShieldUpEvent: {fileID: 0}
+  OnPlayerShieldDownEvent: {fileID: 0}
+  OnPlayerSpawnEvent: {fileID: 0}
+  OnPlayerResetEvent: {fileID: 0}
+  OnPlayerHealthPowerupEvent: {fileID: 0}
+  OnPlayerOneUpPowerupEvent: {fileID: 0}
+  OnGameOverEvent: {fileID: 0}
+  OnLevelRestartLastCheckpointEvent: {fileID: 0}
+  isShielded: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
