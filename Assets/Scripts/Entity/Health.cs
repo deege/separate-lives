@@ -127,19 +127,19 @@ namespace Deege.Game.Entity
             CurrentHealth.SetValue(MaxHealth);
         }
 
-        [CustomEditor(typeof(Health))]
-        public class PlayerHealthEditor : Editor
-        {
-            public override void OnInspectorGUI()
-            {
-                Health health = (Health)target;
-                DrawDefaultInspector();
-                GUILayout.Label("Testing", EditorStyles.boldLabel);
-                if (GUILayout.Button("Reset Health"))
-                {
-                    health.ResetHealth();
-                }
-            }
-        }
+        // [CustomEditor(typeof(Health))]
+        // public class PlayerHealthEditor : Editor
+        // {
+        //     public override void OnInspectorGUI()
+        //     {
+        //         Health health = (Health)target;
+        //         DrawDefaultInspector();
+        //         GUILayout.Label("Testing", EditorStyles.boldLabel);
+        //         if (GUILayout.Button("Reset Health"))
+        //         {
+        //             health.ResetHealth();
+        //         }
+        //     }
+        // }
     }
 }
