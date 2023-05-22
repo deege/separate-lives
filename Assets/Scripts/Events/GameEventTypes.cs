@@ -1,4 +1,4 @@
-namespace Deege.Events.Game
+namespace Deege.Game.Events
 {
     public enum GameControl
     {

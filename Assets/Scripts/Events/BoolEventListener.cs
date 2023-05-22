@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Deege.Events.Game
+namespace Deege.Game.Events
 {
     /// <summary>
     /// To use a generic UnityEvent type you must override the generic type.

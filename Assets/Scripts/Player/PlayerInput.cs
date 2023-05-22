@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Deege.Events.Game;
+using Deege.Game.Events;
 
 namespace Deege.Game.Player
 {

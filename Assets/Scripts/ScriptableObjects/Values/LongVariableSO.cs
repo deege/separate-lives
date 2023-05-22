@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Deege.Variables
+namespace Deege.Game.Variables
 {
     [CreateAssetMenu(fileName = "LongSO", menuName = "Deege/Values/LongVariableSO")]
     public class LongVariableSO : ScriptableObject

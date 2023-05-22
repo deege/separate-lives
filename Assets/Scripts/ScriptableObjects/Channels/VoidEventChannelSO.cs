@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace Deege.Events.Game
+namespace Deege.Game.Events
 {
     /// <summary>
     /// This class is used for Events that have no arguments (Example: Exit game event)
@@ -11,7 +11,7 @@ namespace Deege.Events.Game
     [CreateAssetMenu(menuName = "Deege/Game/Events/Void Event Channel")]
     public class VoidEventChannelSO : SerializableScriptableObject
     {
-        public UnityAction OnEventRaised;
+        public event UnityAction OnEventRaised;
 
         public void RaiseEvent()
         {

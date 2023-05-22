@@ -2,7 +2,7 @@
 using UnityEngine;
 using System;
 using UnityEditor;
-using Deege.Events.Game;
+using Deege.Game.Events;
 
 namespace Deege.Game.Player
 {

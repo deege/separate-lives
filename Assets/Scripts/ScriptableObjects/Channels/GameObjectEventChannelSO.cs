@@ -2,7 +2,7 @@ using UnityEngine.Events;
 using UnityEngine;
 
 
-namespace Deege.Events.Game
+namespace Deege.Game.Events
 {
     /// <summary>
     /// This class is used for Events that have one gameobject argument.

@@ -1,6 +1,6 @@
 using System;
 
-namespace Deege.Variables
+namespace Deege.Game.Variables
 {
     [Serializable]
     public class FloatReference

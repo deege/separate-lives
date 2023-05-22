@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Deege.Variables
+namespace Deege.Game.Variables
 {
     [CreateAssetMenu(fileName = "IntSO", menuName = "Deege/Values/IntVariableSO")]
     public class IntVariableSO : ScriptableObject

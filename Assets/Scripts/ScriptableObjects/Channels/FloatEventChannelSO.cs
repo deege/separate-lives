@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Deege.Events.Game
+namespace Deege.Game.Events
 {
     /// <summary>
     /// This class is used for Events that have one float argument.

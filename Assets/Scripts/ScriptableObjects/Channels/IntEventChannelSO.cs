@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Deege.Events.Game
+namespace Deege.Game.Events
 {
     /// <summary>
     /// This class is used for Events that have one int argument.
@@ -11,7 +11,7 @@ namespace Deege.Events.Game
     [CreateAssetMenu(menuName = "Deege/Game/Events/Int Event Channel")]
     public class IntEventChannelSO : SerializableScriptableObject
     {
-        public UnityAction<int> OnEventRaised;
+        public event UnityAction<int> OnEventRaised;
 
         public void RaiseEvent(int value)
         {

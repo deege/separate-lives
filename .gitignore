@@ -509,4 +509,7 @@ crashlytics-build.properties
 .history
 .ionide
 
+# Third Party Assets
+*/ThirdParty
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,unity,visualstudiocode,csharp
