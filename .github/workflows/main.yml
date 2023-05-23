@@ -120,7 +120,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: project
-          path: .
 
       - uses: game-ci/unity-builder@v2
         with:
