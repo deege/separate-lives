@@ -91,9 +91,6 @@ jobs:
       - name: List contents
         run: ls -la
 
-      - name: List contents of project
-        run: ls -la project
-
       - name: Extract project
         run: tar -xzvf project_files.tar.gz
 
