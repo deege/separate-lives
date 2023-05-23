@@ -55,6 +55,7 @@ jobs:
         run: |
           echo "PATCH_VERSION=${GITHUB_SHA::7}" >> $GITHUB_ENV
           echo "VERSION=${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}.${{ vars.PATCH_VERSION }}" >> $GITHUB_ENV
+          echo $VERSION
           # git tag $VERSION
           # git push origin $VERSION
 
@@ -125,6 +126,8 @@ jobs:
 
       - name: Build Game for Web GL
         uses: game-ci/unity-builder@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           projectPath: .
           targetPlatform: WebGL
