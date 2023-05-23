@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: project
-          path: project_files.tar.gz
+          path: .
 
       - name: Create and push tag
         env:
@@ -86,7 +86,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: project
-          path: project_files.tar.gz
 
       - name: List contents
         run: ls -la
@@ -141,6 +140,7 @@ jobs:
 
       - uses: game-ci/unity-builder@v2
         with:
+          projectPath: project
           targetPlatform: WebGL
           customParameters: "-executeMethod SetVersion.SetGameVersion -version=${{ env.VERSION }}"
 
