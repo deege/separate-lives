@@ -43,11 +43,14 @@ jobs:
           git add .
           git reset --hard
 
+      - name: Tar files
+        run: tar -czvf project_files.tar.gz .
+
       - name: Archive project
         uses: actions/upload-artifact@v3
         with:
           name: project
-          path: .
+          path: project_files.tar.gz
 
       - name: Create and push tag
         env:
@@ -77,10 +80,16 @@ jobs:
             Library-test-project-
             Library-
 
-      - name: Download project
+      - name: Download tarred project
         uses: actions/download-artifact@v3
         with:
           name: project
+
+      - name: Extract project
+        run: tar -xzvf project/project_files.tar.gz
+
+      - name: List contents
+        run: ls -la
 
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
@@ -88,9 +97,6 @@ jobs:
         with:
           testMode: ${{ matrix.testMode }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: List contents
-        run: ls -la
 
       - uses: actions/upload-artifact@v3
         with:
@@ -119,10 +125,13 @@ jobs:
             Library-test-project-
             Library-
 
-      - name: Download project
+      - name: Download tarred project
         uses: actions/download-artifact@v3
         with:
           name: project
+
+      - name: Extract project
+        run: tar -xzvf project/project_files.tar.gz
 
       - name: List contents
         run: ls -la
