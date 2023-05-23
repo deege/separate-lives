@@ -44,7 +44,9 @@ jobs:
           git reset --hard
 
       - name: Tar files
-        run: tar -czvf project_files.tar.gz .
+        run: |
+          project_files.tar.gz 
+          tar --exclude=project_files.tar.gz -czvf project_files.tar.gz .
 
       - name: Archive project
         uses: actions/upload-artifact@v3
