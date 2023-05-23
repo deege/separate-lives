@@ -12,6 +12,10 @@ namespace Deege.Game.Player
         [Header("Player Event Channels")]
         [SerializeField] public Vector2EventChannelSO OnPlayerMovement;
         [SerializeField] public BoolEventChannelSO OnPlayerJump;
+        [SerializeField] public GameControlChannelSO OnGameSwitchControlsEvent;
+        [SerializeField] public BoolEventChannelSO OnGamePauseEvent;
+        [SerializeField] public VoidEventChannelSO OnPlayerShootingStartEvent;
+        [SerializeField] public VoidEventChannelSO OnPlayerShootingStopEvent;
 
         private bool controlsAreEnabled = true;
         private PlayerControls inputActions;
@@ -73,13 +77,13 @@ namespace Deege.Game.Player
 
         public void EnableControls()
         {
-            // GameSwitchControlsEvent.Trigger("Game Controls", GameControl.Player);
+            OnGameSwitchControlsEvent?.RaiseEvent(GameControl.Player);
             controlsAreEnabled = true;
         }
         public void DisableControls()
         {
-            // GameSwitchControlsEvent.Trigger("Game Controls", GameControl.UI);
-            // PlayerShootingStopEvent.Trigger("Stop Player Fire Event");
+            OnGameSwitchControlsEvent?.RaiseEvent(GameControl.UI);
+            OnPlayerShootingStopEvent?.RaiseEvent();
             controlsAreEnabled = false;
         }
 
@@ -92,13 +96,13 @@ namespace Deege.Game.Player
         {
             if (controlsAreEnabled)
             {
-                // PlayerShootingStartEvent.Trigger("Start Player Fire Event");
+                OnPlayerShootingStartEvent?.RaiseEvent();
             }
         }
 
         public void OnPlayerFireCanceled(InputAction.CallbackContext obj)
         {
-            // PlayerShootingStopEvent.Trigger("Stop Player Fire Event");
+            OnPlayerShootingStopEvent?.RaiseEvent();
         }
 
         public void OnPlayerJumpPerformed(InputAction.CallbackContext obj)
@@ -123,8 +127,12 @@ namespace Deege.Game.Player
             if (controlsAreEnabled)
             {
                 DisableControls();
-                // GamePauseEvent.Trigger("Pause Game");
             }
+            else
+            {
+                EnableControls();
+            }
+            OnGamePauseEvent?.RaiseEvent(controlsAreEnabled);
         }
     }
 }

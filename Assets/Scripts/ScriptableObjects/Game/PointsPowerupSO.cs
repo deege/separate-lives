@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using Deege.Game.Events;
 
 namespace Deege.Game
 {
@@ -7,9 +8,11 @@ namespace Deege.Game
     public class PointsPowerupSO : PowerupEffectSO
     {
         public int Points = 0;
+        public LongEventChannelSO OnAddScoreEvent;
+
         override public void Apply(GameObject target)
         {
-            // AddScoreEvent.Trigger("Points Collected Score Event", Points);
+            OnAddScoreEvent.RaiseEvent(Points);
         }
 
         public override void Remove(GameObject target)

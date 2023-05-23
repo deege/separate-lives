@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using Deege.Game.Events;
 
 namespace Deege.Game
 {
@@ -7,14 +8,17 @@ namespace Deege.Game
     public class ShieldPowerupSO : PowerupEffectSO
     {
 
+        [SerializeField] public FloatEventChannelSO OnPlayerShieldUpEvent;
+        [SerializeField] public VoidEventChannelSO OnPlayerShieldDownEvent;
+
         override public void Apply(GameObject target)
         {
-            // PlayerShieldsUpEvent.Trigger("Player Shields Up Event", Duration);
+            OnPlayerShieldUpEvent.RaiseEvent(Duration);
         }
 
         public override void Remove(GameObject target)
         {
-            // PlayerShieldsDownEvent.Trigger("Player Shields Down Event");
+            OnPlayerShieldDownEvent.RaiseEvent();
         }
     }
 }

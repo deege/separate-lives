@@ -8,23 +8,23 @@ using Deege.Game.Variables;
 namespace Deege.Game.Events
 {
     /// <summary>
-    /// This class is used for Events that have one int variable argument.
-    /// Example: An health event, where the int is the current health.
+    /// This class is used for Events that have one long variable argument.
+    /// Example: An score event, where the long is the current total score.
     /// </summary>
 
-    [CreateAssetMenu(menuName = "Deege/Game/Events/Int Variable Channel SO")]
-    public class IntVariableChannelSO : SerializableScriptableObject
+    [CreateAssetMenu(menuName = "Deege/Game/Events/Long Variable Channel SO")]
+    public class LongVariableChannelSO : SerializableScriptableObject
     {
-        public UnityAction<int> OnEventRaised;
-        private int _value;
+        public UnityAction<long> OnEventRaised;
+        private long _value;
 
-        protected void RaiseEvent(int value)
+        protected void RaiseEvent(long value)
         {
             if (OnEventRaised != null)
                 OnEventRaised.Invoke(value);
         }
 
-        public int Value
+        public long Value
         {
             get { return _value; }
         }
@@ -33,25 +33,25 @@ namespace Deege.Game.Events
         [Multiline]
         public string DeveloperDescription = "";
 #endif
-        public void SetValue(int value)
+        public void SetValue(long value)
         {
             _value = value;
             RaiseEvent(Value);
         }
 
-        public void SetValue(IntVariableSO value)
+        public void SetValue(LongVariableSO value)
         {
             _value = value.Value;
             RaiseEvent(Value);
         }
 
-        public void Add(int amount)
+        public void Add(long amount)
         {
             _value += amount;
             RaiseEvent(Value);
         }
 
-        public void Add(IntVariableSO amount)
+        public void Add(LongVariableSO amount)
         {
             _value += amount.Value;
             RaiseEvent(Value);

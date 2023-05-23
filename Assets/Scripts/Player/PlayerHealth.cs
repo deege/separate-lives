@@ -181,8 +181,8 @@ namespace Deege.Game.Player
             {
                 int initialHealth = CurrentHealth.Value;
                 base.TakeDamage(damage);
-                OnPlayerHitEvent.RaiseEvent(damage);
-                OnPlayerHealthEvent.RaiseEvent(initialHealth, CurrentHealth.Value, MaxHealth.Value);
+                OnPlayerHitEvent?.RaiseEvent(damage);
+                OnPlayerHealthEvent?.RaiseEvent(initialHealth, CurrentHealth.Value, MaxHealth.Value);
             }
         }
 
@@ -191,7 +191,7 @@ namespace Deege.Game.Player
             int initialHealth = CurrentHealth.Value;
             int clampedHealth = Mathf.Clamp(CurrentHealth.Value + bonus, 0, Int32.MaxValue);
             CurrentHealth.SetValue(clampedHealth);
-            OnPlayerHealthEvent.RaiseEvent(initialHealth, CurrentHealth.Value, MaxHealth.Value);
+            OnPlayerHealthEvent?.RaiseEvent(initialHealth, CurrentHealth.Value, MaxHealth.Value);
         }
 
         public void ResetLives()
@@ -243,7 +243,7 @@ namespace Deege.Game.Player
         {
             if (otherGO.GetInstanceID() == gameObject.GetInstanceID())
             {
-                OnPlayerHitEvent.RaiseEvent(damageAmount);
+                OnPlayerHitEvent?.RaiseEvent(damageAmount);
             }
         }
 
@@ -251,7 +251,7 @@ namespace Deege.Game.Player
         {
             if (otherGO.GetInstanceID() == gameObject.GetInstanceID())
             {
-                OnPlayerDeathEvent.RaiseEvent(otherGO);
+                OnPlayerDeathEvent?.RaiseEvent(otherGO);
             }
         }
 

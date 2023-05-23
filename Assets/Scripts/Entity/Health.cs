@@ -81,7 +81,7 @@ namespace Deege.Game.Entity
         /// </summary>
         protected void Die()
         {
-            OnEntityDiedEvent.RaiseEvent(gameObject);
+            OnEntityDiedEvent?.RaiseEvent(gameObject);
         }
 
         /// <summary>
@@ -110,11 +110,11 @@ namespace Deege.Game.Entity
                 int damageDealt = GetComponent<DamageDealer>().GetDamage();
                 if (damageReceived > 0)
                 {
-                    OnEntityHitEvent.RaiseEvent(gameObject, damageReceived);
+                    OnEntityHitEvent?.RaiseEvent(gameObject, damageReceived);
                 }
                 if (damageDealt > 0)
                 {
-                    OnEntityHitEvent.RaiseEvent(other.gameObject, damageDealt);
+                    OnEntityHitEvent?.RaiseEvent(other.gameObject, damageDealt);
                 }
             }
         }
