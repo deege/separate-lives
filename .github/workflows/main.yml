@@ -82,16 +82,8 @@ jobs:
             Library-test-project-
             Library-
 
-      - name: Download tarred project
-        uses: actions/download-artifact@v3
-        with:
-          name: project
-
       - name: List contents
         run: ls -la
-
-      - name: Extract project
-        run: tar -xzvf project_files.tar.gz
 
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
@@ -100,7 +92,8 @@ jobs:
           testMode: ${{ matrix.testMode }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v3
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
         with:
           name: Test results (${{ matrix.testMode }})
           path: ${{ steps.testRunner.outputs.artifactsPath }}
@@ -127,20 +120,13 @@ jobs:
             Library-test-project-
             Library-
 
-      - name: Download tarred project
-        uses: actions/download-artifact@v3
-        with:
-          name: project
-
-      - name: Extract project
-        run: tar -xzvf project/project_files.tar.gz
-
       - name: List contents
         run: ls -la
 
-      - uses: game-ci/unity-builder@v2
+      - name: Build Game for Web GL
+        uses: game-ci/unity-builder@v2
         with:
-          projectPath: project
+          projectPath: .
           targetPlatform: WebGL
           customParameters: "-executeMethod SetVersion.SetGameVersion -version=${{ env.VERSION }}"
 
