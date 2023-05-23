@@ -123,7 +123,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: project
-          path: .
 
       - name: List contents
         run: ls -la
