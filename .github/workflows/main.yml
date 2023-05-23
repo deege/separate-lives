@@ -107,11 +107,6 @@ jobs:
     strategy:
       fail-fast: false
     steps:
-      - name: Download project
-        uses: actions/download-artifact@v3
-        with:
-          name: project
-
       - name: Restore Library cache
         uses: actions/cache@v3
         with:
@@ -120,6 +115,11 @@ jobs:
           restore-keys: |
             Library-test-project-
             Library-
+
+      - name: Download project
+        uses: actions/download-artifact@v3
+        with:
+          name: project
 
       - name: List contents
         run: ls -la
@@ -135,8 +135,10 @@ jobs:
         uses: game-ci/unity-builder@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ vars.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          projectPath: ./
           targetPlatform: WebGL
           customParameters: "-executeMethod SetVersion.SetGameVersion -version=${{ env.VERSION }}"
 
