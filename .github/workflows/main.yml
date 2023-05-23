@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: project
-          path: project_files.tar.gz
+          path: project/project_files.tar.gz
 
       - name: Create and push tag
         env:
