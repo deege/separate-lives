@@ -89,6 +89,9 @@ jobs:
           testMode: ${{ matrix.testMode }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: List contents
+        run: ls -la
+
       - uses: actions/upload-artifact@v3
         with:
           name: Test results (${{ matrix.testMode }})
@@ -120,6 +123,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: project
+          path: .
+
+      - name: List contents
+        run: ls -la
 
       - uses: game-ci/unity-builder@v2
         with:
