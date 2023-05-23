@@ -45,7 +45,7 @@ jobs:
 
       - name: Tar files
         run: |
-          project_files.tar.gz 
+          touch project_files.tar.gz 
           tar --exclude=project_files.tar.gz -czvf project_files.tar.gz .
 
       - name: Archive project
