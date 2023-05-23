@@ -121,6 +121,9 @@ jobs:
             Library-test-project-
             Library-
 
+      - name: Set user
+        run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+
       - name: List contents
         run: ls -la
 
