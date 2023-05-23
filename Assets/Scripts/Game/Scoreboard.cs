@@ -1,18 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using Deege.Game.Events;
+using TMPro;
 using UnityEngine;
 
-public class Scoreboard : MonoBehaviour
+namespace Deege.Game.Level
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Scoreboard : MonoBehaviour
     {
-        
-    }
+        [Header("General")]
+        [SerializeField] TextMeshProUGUI scoreText;
+        [Header("Event Channels")]
+        [SerializeField] public LongVariableChannelSO CurrentScore;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        private void Start()
+        {
+
+        }
+
+        void OnEnable()
+        {
+            if (CurrentScore != null)
+            {
+                CurrentScore.OnEventRaised += UpdateScore;
+            }
+        }
+
+        void OnDisable()
+        {
+            if (CurrentScore != null)
+            {
+                CurrentScore.OnEventRaised -= UpdateScore;
+            }
+        }
+
+        public void UpdateScore(long newScore)
+        {
+            scoreText.text = newScore.ToString("D10");
+        }
     }
 }
