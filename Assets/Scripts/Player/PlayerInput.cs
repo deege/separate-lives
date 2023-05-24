@@ -16,6 +16,7 @@ namespace Deege.Game.Player
         [SerializeField] public BoolEventChannelSO OnGamePauseEvent;
         [SerializeField] public VoidEventChannelSO OnPlayerShootingStartEvent;
         [SerializeField] public VoidEventChannelSO OnPlayerShootingStopEvent;
+        [SerializeField] public VoidEventChannelSO OnPlayerSwitchButtonPressedEvent;
 
         private bool controlsAreEnabled = true;
         private PlayerControls inputActions;
@@ -23,6 +24,7 @@ namespace Deege.Game.Player
         private InputAction fireAction;
         private InputAction jumpAction;
         private InputAction pauseAction;
+        private InputAction switchAction;
         private Vector2 rawInput;
 
         public bool ControlsAreEnabled
@@ -51,6 +53,10 @@ namespace Deege.Game.Player
             jumpAction.Enable();
             inputActions.Player.Jump.performed += OnPlayerJumpPerformed;
             inputActions.Player.Jump.canceled += OnPlayerJumpCanceled;
+
+            switchAction = inputActions.Player.Switch;
+            switchAction.Enable();
+            inputActions.Player.Switch.performed += OnPlayerSwitchPerformed;
         }
 
         public void OnDisable()
@@ -64,6 +70,8 @@ namespace Deege.Game.Player
             inputActions.Player.Jump.performed -= OnPlayerJumpPerformed;
             inputActions.Player.Jump.canceled -= OnPlayerJumpCanceled;
             inputActions.Player.Pause.performed -= OnPlayerPause;
+
+            inputActions.Player.Switch.performed -= OnPlayerSwitchPerformed;
         }
 
         // Update is called once per frame
@@ -118,6 +126,15 @@ namespace Deege.Game.Player
             if (controlsAreEnabled)
             {
                 OnPlayerJump?.RaiseEvent(false);
+            }
+        }
+
+        public void OnPlayerSwitchPerformed(InputAction.CallbackContext obj)
+        {
+            Debug.Log("Switch performed. Controls enabled: " + controlsAreEnabled);
+            if (controlsAreEnabled)
+            {
+                OnPlayerSwitchButtonPressedEvent?.RaiseEvent();
             }
         }
 
