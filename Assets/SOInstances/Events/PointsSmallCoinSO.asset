@@ -15,4 +15,4 @@ MonoBehaviour:
   Duration: 0
   ID: 
   Points: 10
-  OnAddScoreEvent: {fileID: 0}
+  OnAddScoreEvent: {fileID: 11400000, guid: d83a07a8c4b9a4165b3ac0613894e29f, type: 2}
