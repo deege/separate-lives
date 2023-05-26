@@ -8,8 +8,11 @@ namespace Deege.Game.Level
     public class LivesBar : MonoBehaviour
     {
         [Header("Player Settings")]
-        [SerializeField] public IntVariableChannelSO PlayerLivesChannel;
         [SerializeField] public List<GameObject> Hearts;
+
+        [Header("Event Channels")]
+        [SerializeField] public IntVariableChannelSO PlayerLivesChannel;
+
 
         private void OnEnable()
         {
@@ -30,7 +33,6 @@ namespace Deege.Game.Level
         // Start is called before the first frame update
         void OnPlayerLivesChange(int lives)
         {
-            Debug.Log("In LivesBar");
             for (int i = 0; i < Hearts.Count; i++)
                 Hearts[i].SetActive(lives > i);
         }

@@ -13,17 +13,11 @@ namespace Deege.Game.Level
         [Header("Event Channels")]
         [SerializeField] public LongVariableChannelSO CurrentScore;
 
-
-        private void Start()
-        {
-
-        }
-
         void OnEnable()
         {
             if (CurrentScore != null)
             {
-                CurrentScore.OnEventRaised += UpdateScore;
+                CurrentScore.OnEventRaised += OnUpdateScore;
             }
         }
 
@@ -31,12 +25,13 @@ namespace Deege.Game.Level
         {
             if (CurrentScore != null)
             {
-                CurrentScore.OnEventRaised -= UpdateScore;
+                CurrentScore.OnEventRaised -= OnUpdateScore;
             }
         }
 
-        public void UpdateScore(long newScore)
+        public void OnUpdateScore(long newScore)
         {
+            Debug.Log("In UpdateScore");
             scoreText.text = newScore.ToString("D10");
         }
     }

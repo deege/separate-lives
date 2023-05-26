@@ -18,7 +18,7 @@ namespace Deege.Game.Events
         public UnityAction<long> OnEventRaised;
         [SerializeField] private long _value;
 
-        protected void RaiseEvent(long value)
+        public void RaiseEvent(long value)
         {
             if (OnEventRaised != null)
                 OnEventRaised.Invoke(value);
@@ -58,4 +58,26 @@ namespace Deege.Game.Events
             Value += amount.Value;
         }
     }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(LongVariableChannelSO))]
+public class LongVariableChannelSOEditor : Editor
+{
+    private long _lastValue = 0;
+
+    public override void OnInspectorGUI()
+    {
+        // Draw default inspector and get a reference to the script
+        DrawDefaultInspector();
+        LongVariableChannelSO script = (LongVariableChannelSO)target;
+
+        // Check if value changed
+        if (_lastValue != script.Value)
+        {
+            _lastValue = script.Value;
+            script.RaiseEvent(_lastValue); // If value changed, raise the event
+        }
+    }
+}
+#endif
 }
