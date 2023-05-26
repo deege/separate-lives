@@ -12,7 +12,7 @@ namespace Deege.Game
 
         override public void Apply(GameObject target)
         {
-            OnAddScoreEvent.RaiseEvent(Points);
+            OnAddScoreEvent?.RaiseEvent(Points);
         }
 
         public override void Remove(GameObject target)

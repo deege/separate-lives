@@ -12,7 +12,7 @@ namespace Deege.Game.Level
         [SerializeField] public LongVariableChannelSO CurrentScore;
 
         [SerializeField] public IntReference InitialLives;
-        [SerializeField] public IntVariableSO CurrentLives;
+        [SerializeField] public IntVariableChannelSO CurrentLives;
 
         [Header("Event Channels")]
         [SerializeField] public LongEventChannelSO OnAddScoreEvent;

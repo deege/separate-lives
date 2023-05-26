@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8860140fb2b1f4aa9b20885ff6b6d7fb, type: 3}
-  m_Name: PointsSmallCoinSO
+  m_Script: {fileID: 11500000, guid: 468df50b207134869877c4f175c6de0f, type: 3}
+  m_Name: GameAddScoreEvent
   m_EditorClassIdentifier: 
-  Duration: 0
-  ID: 
-  Points: 10
-  OnAddScoreEvent: {fileID: 0}
+  _guid: 

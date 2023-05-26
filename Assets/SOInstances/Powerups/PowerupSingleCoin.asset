@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8860140fb2b1f4aa9b20885ff6b6d7fb, type: 3}
-  m_Name: PointsSmallCoinSO
+  m_Name: PowerupSingleCoin
   m_EditorClassIdentifier: 
   Duration: 0
-  ID: 
+  ID: coin
   Points: 10
-  OnAddScoreEvent: {fileID: 0}
+  OnAddScoreEvent: {fileID: 11400000, guid: d83a07a8c4b9a4165b3ac0613894e29f, type: 2}
