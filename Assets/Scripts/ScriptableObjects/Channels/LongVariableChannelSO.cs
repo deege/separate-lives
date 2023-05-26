@@ -16,7 +16,7 @@ namespace Deege.Game.Events
     public class LongVariableChannelSO : SerializableScriptableObject
     {
         public UnityAction<long> OnEventRaised;
-        private long _value;
+        [SerializeField] private long _value;
 
         protected void RaiseEvent(long value)
         {
@@ -27,6 +27,11 @@ namespace Deege.Game.Events
         public long Value
         {
             get { return _value; }
+            set
+            {
+                _value = value;
+                RaiseEvent(_value);
+            }
         }
 
 #if UNITY_EDITOR
@@ -35,26 +40,22 @@ namespace Deege.Game.Events
 #endif
         public void SetValue(long value)
         {
-            _value = value;
-            RaiseEvent(Value);
+            Value = value;
         }
 
         public void SetValue(LongVariableSO value)
         {
-            _value = value.Value;
-            RaiseEvent(Value);
+            Value = value.Value;
         }
 
         public void Add(long amount)
         {
-            _value += amount;
-            RaiseEvent(Value);
+            Value += amount;
         }
 
         public void Add(LongVariableSO amount)
         {
-            _value += amount.Value;
-            RaiseEvent(Value);
+            Value += amount.Value;
         }
     }
 }
