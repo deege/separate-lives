@@ -140,7 +140,6 @@ namespace Deege.Game.Player
 
         public void OnPlayerPause(InputAction.CallbackContext obj)
         {
-            Debug.Log("Pause pressed");
             if (controlsAreEnabled)
             {
                 DisableControls();
@@ -149,7 +148,7 @@ namespace Deege.Game.Player
             {
                 EnableControls();
             }
-            OnGamePauseEvent?.RaiseEvent(controlsAreEnabled);
+            OnGamePauseEvent?.RaiseEvent(!controlsAreEnabled);
         }
     }
 }
