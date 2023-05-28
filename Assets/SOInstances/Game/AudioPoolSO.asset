@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: AudioPoolSO
   m_EditorClassIdentifier: 
   poolSize: 10
-  audioPrefab: {fileID: 7738987510036764580, guid: 44ae33f36f070468e88b7543300020c2, type: 3}
+  audioPrefab: {fileID: 2771253052513892469, guid: 04ace77f00af94b88931a47d29e4d80d, type: 3}
   mixerGroup: {fileID: -2670514267037312495, guid: 0ffb068fb79494660bca324f83a8b2fa, type: 2}
