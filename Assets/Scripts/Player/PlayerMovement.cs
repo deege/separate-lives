@@ -14,7 +14,7 @@ namespace Deege.Game.Player
         [SerializeField] public float jumpForce = 8.0f;
         [SerializeField] public float secondJumpForce = 4.0f;
         [SerializeField] public float dashForce = 10.0f;
-
+        [SerializeField] public float rotationSpeed;
 
         [Header("Player Event Channels")]
         [SerializeField] public Vector2EventChannelSO OnPlayerMovementEvent;
@@ -63,6 +63,18 @@ namespace Deege.Game.Player
             float moveSpeed = 5f; // Adjust the speed as needed
             Vector3 movement = new Vector3(rawInput.x * moveSpeed, 0f, 0f);
             transform.position += movement * Time.deltaTime;
+            if (rawInput.x > 0)
+            {
+                transform.eulerAngles = new Vector3(0, 90, 0); // Face right
+            }
+            else if (rawInput.x < 0)
+            {
+                transform.eulerAngles = new Vector3(0, -90, 0); // Face left
+            }
+            else if (rawInput.x == 0)
+            {
+                transform.eulerAngles = new Vector3(0, 180, 0);
+            }
         }
 
         private void JumpPlayer(bool startJump)
