@@ -31,7 +31,6 @@ namespace Deege.Game.Level
 
         public void OnUpdateScore(long newScore)
         {
-            Debug.Log("In UpdateScore");
             scoreText.text = newScore.ToString("D10");
         }
     }

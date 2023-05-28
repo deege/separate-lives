@@ -20,9 +20,57 @@ namespace Deege.Game.Player
         [SerializeField] public Vector2EventChannelSO OnPlayerMovementEvent;
         [SerializeField] public BoolEventChannelSO OnPlayerJumpEvent;
 
+        [SerializeField] public BoolEventChannelSO OnPlayerIsJumpingEvent;
+        [SerializeField] public BoolEventChannelSO OnPlayerIsDashingEvent;
+        [SerializeField] public BoolEventChannelSO OnPlayerIsCrouchingEvent;
+        [SerializeField] public BoolEventChannelSO OnPlayerIsRunningEvent;
+
         private int jumpCount = 0;
         private bool isJumping = false;
+
+        public bool IsJumping
+        {
+            get { return isJumping; }
+            set
+            {
+                if (isJumping != value)
+                {
+                    isJumping = value;
+                    Debug.Log("Raising event Jumping");
+                    OnPlayerIsJumpingEvent?.RaiseEvent(isJumping);
+                }
+            }
+        }
         private bool isDashing = false;
+
+        public bool IsDashing
+        {
+            get { return isDashing; }
+            set
+            {
+                if (isDashing != value)
+                {
+                    isDashing = value;
+                    OnPlayerIsDashingEvent?.RaiseEvent(true);
+                }
+            }
+        }
+
+        private bool isCrouching = false;
+
+        public bool IsCrouching
+        {
+            get { return isCrouching; }
+            set
+            {
+                if (isCrouching != value)
+                {
+                    isCrouching = value;
+                    OnPlayerIsCrouchingEvent?.RaiseEvent(isCrouching);
+                }
+            }
+        }
+
         private Vector3 dashDirection;
 
 
@@ -41,7 +89,6 @@ namespace Deege.Game.Player
             }
             if (OnPlayerJumpEvent != null)
             {
-                Debug.Log($"Registering Jump for Movement - {OnPlayerJumpEvent.Guid}");
                 OnPlayerJumpEvent.OnEventRaised = OnPlayerJump;
             }
         }
@@ -60,9 +107,9 @@ namespace Deege.Game.Player
 
         private void MovePlayer(Vector2 rawInput)
         {
-            float moveSpeed = 5f; // Adjust the speed as needed
             Vector3 movement = new Vector3(rawInput.x * moveSpeed, 0f, 0f);
             transform.position += movement * Time.deltaTime;
+            OnPlayerIsRunningEvent.RaiseEvent(rawInput.x != 0);
             if (rawInput.x > 0)
             {
                 transform.eulerAngles = new Vector3(0, 90, 0); // Face right
@@ -73,13 +120,13 @@ namespace Deege.Game.Player
             }
             else if (rawInput.x == 0)
             {
-                transform.eulerAngles = new Vector3(0, 180, 0);
+                transform.eulerAngles = new Vector3(0, 180, 0); // Idle
             }
         }
 
         private void JumpPlayer(bool startJump)
         {
-            if (startJump && (jumpCount < 2 || !isJumping))
+            if (startJump && (jumpCount < 2 || !IsJumping))
             {
                 if (jumpCount == 0)
                 {
@@ -94,17 +141,17 @@ namespace Deege.Game.Player
 
                     // Store the direction of movement
                     dashDirection = new Vector3(rb.velocity.x, 0.0f, rb.velocity.z).normalized;
-                    isDashing = true;
+                    IsDashing = true;
                 }
 
                 jumpCount++;
-                isJumping = true;
+                IsJumping = true;
             }
 
-            if (isDashing)
+            if (IsDashing)
             {
                 rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
-                isDashing = false;
+                IsDashing = false;
             }
         }
 
@@ -124,8 +171,8 @@ namespace Deege.Game.Player
             if (collision.gameObject.CompareTag("Ground")) // Replace "Ground" with the appropriate tag for your ground objects
             {
                 jumpCount = 0;
-                isJumping = false;
-                isDashing = false;
+                IsJumping = false;
+                IsDashing = false;
             }
         }
     }

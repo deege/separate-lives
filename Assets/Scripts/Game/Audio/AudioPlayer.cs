@@ -32,7 +32,6 @@ namespace Deege.Game.Audio
 
         private void Start()
         {
-            Debug.Log("AudioPlayer Start method called");
             audioPool?.Initialize(transform);
         }
 
@@ -56,7 +55,6 @@ namespace Deege.Game.Audio
 
         private System.Collections.IEnumerator ReturnToPoolAfterPlaying(AudioSource audioSource)
         {
-            Debug.Log($"Audio length is {audioSource.clip.length}");
             yield return new WaitForSeconds(audioSource.clip.length);
             audioSource.gameObject.SetActive(false);
             audioPool.ReturnToPool(audioSource);

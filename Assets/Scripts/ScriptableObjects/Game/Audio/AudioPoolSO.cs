@@ -17,8 +17,6 @@ namespace Deege.Game.Audio
 
         public void Initialize(Transform parentTransform)
         {
-            Debug.Log("Calling Initialize");
-            Debug.Log($"Initialize was called by {new System.Diagnostics.StackTrace()}");
             originalParentTransform = parentTransform;
 
             for (int i = 0; i < poolSize; i++)
