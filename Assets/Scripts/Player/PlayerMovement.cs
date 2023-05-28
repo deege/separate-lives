@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using System;
 using UnityEditor;
@@ -42,6 +41,7 @@ namespace Deege.Game.Player
             }
             if (OnPlayerJumpEvent != null)
             {
+                Debug.Log($"Registering Jump for Movement - {OnPlayerJumpEvent.Guid}");
                 OnPlayerJumpEvent.OnEventRaised = OnPlayerJump;
             }
         }
@@ -65,7 +65,7 @@ namespace Deege.Game.Player
             transform.position += movement * Time.deltaTime;
         }
 
-        private void JumpPlayer(Boolean startJump)
+        private void JumpPlayer(bool startJump)
         {
             if (startJump && (jumpCount < 2 || !isJumping))
             {

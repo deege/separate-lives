@@ -11,12 +11,6 @@ namespace Deege.Game.Level
         [SerializeField] public VoidEventChannelSO OnGameStartEvent;
         [SerializeField] public VoidEventChannelSO OnLevelStartEvent;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
         private void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
