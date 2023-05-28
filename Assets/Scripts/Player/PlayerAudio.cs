@@ -14,13 +14,17 @@ namespace Deege.Game.Player
 
         [Header("Event Channels")]
         [SerializeField] public BoolEventChannelSO OnPlayerJumpEvent;
+        [SerializeField] public VoidEventChannelSO OnPlayerSwitchButtonPressedEvent;
 
         void OnEnable()
         {
             if (OnPlayerJumpEvent != null)
             {
-                Debug.Log($"Player Jump Registered - {OnPlayerJumpEvent.Guid}");
                 OnPlayerJumpEvent.OnEventRaised += OnPlayerJump;
+            }
+            if (OnPlayerSwitchButtonPressedEvent != null)
+            {
+                OnPlayerSwitchButtonPressedEvent.OnEventRaised += OnPlayerSwitch;
             }
         }
 
@@ -28,18 +32,25 @@ namespace Deege.Game.Player
         {
             if (OnPlayerJumpEvent != null)
             {
-                Debug.Log($"Player Jump Removed - {OnPlayerJumpEvent.Guid}");
                 OnPlayerJumpEvent.OnEventRaised -= OnPlayerJump;
+            }
+            if (OnPlayerSwitchButtonPressedEvent != null)
+            {
+                OnPlayerSwitchButtonPressedEvent.OnEventRaised -= OnPlayerSwitch;
             }
         }
 
         public void OnPlayerJump(bool isJumping)
         {
-            Debug.Log("Player Jump Sound");
             if (isJumping)
             {
                 audioPlayer.PlaySound("player_jump");
             }
+        }
+
+        public void OnPlayerSwitch()
+        {
+            audioPlayer.PlaySound("player_switch");
         }
 
     }

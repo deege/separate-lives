@@ -16,7 +16,6 @@ namespace Deege.Game.Player
         {
             if (OnPlayerJumpEvent != null)
             {
-                Debug.Log($"Player Jump Registered in debug - {OnPlayerJumpEvent.Guid}");
                 OnPlayerJumpEvent.OnEventRaised += OnPlayerJump;
             }
         }
@@ -25,14 +24,13 @@ namespace Deege.Game.Player
         {
             if (OnPlayerJumpEvent != null)
             {
-                Debug.Log($"Player Jump Removed in debug - {OnPlayerJumpEvent.Guid}");
                 OnPlayerJumpEvent.OnEventRaised -= OnPlayerJump;
             }
         }
 
         public void OnPlayerJump(bool isJumping)
         {
-            Debug.Log($"Player is jumping in debug - {OnPlayerJumpEvent.Guid}");
+            // Debug.Log($"Player is jumping in debug - {OnPlayerJumpEvent.Guid}");
         }
 
     }

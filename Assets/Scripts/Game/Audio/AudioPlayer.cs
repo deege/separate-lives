@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 
 namespace Deege.Game.Audio
@@ -31,31 +32,33 @@ namespace Deege.Game.Audio
 
         private void Start()
         {
+            Debug.Log("AudioPlayer Start method called");
             audioPool?.Initialize(transform);
         }
 
-        public void PlaySound(string clipName)
+        public void PlaySound(string name, AudioMixerGroup audioMixerGroup = null)
         {
-            if (clipEntries.ContainsKey(clipName.ToLower()))
+            if (clipEntries.TryGetValue(name, out AudioClip clip))
             {
-                AudioSource audioSource = audioPool.GetAudioSource();
-                if (audioSource != null)
-                {
-                    audioSource.clip = clipEntries[clipName];
-                    audioSource.Play();
+                AudioSource source = audioPool.Get();
+                source.gameObject.SetActive(true);
+                source.clip = clip;
+                source.outputAudioMixerGroup = audioMixerGroup;
+                source.Play();
 
-                    StartCoroutine(ReturnToPoolAfterPlaying(audioSource));
-                }
+                StartCoroutine(ReturnToPoolAfterPlaying(source));
             }
             else
             {
-                Debug.LogWarning($"{clipName} could not be found in the AudioPlayer");
+                Debug.LogError($"No clip found with name {name}");
             }
         }
 
         private System.Collections.IEnumerator ReturnToPoolAfterPlaying(AudioSource audioSource)
         {
+            Debug.Log($"Audio length is {audioSource.clip.length}");
             yield return new WaitForSeconds(audioSource.clip.length);
+            audioSource.gameObject.SetActive(false);
             audioPool.ReturnToPool(audioSource);
         }
     }

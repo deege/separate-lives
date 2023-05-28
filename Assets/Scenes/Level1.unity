@@ -2241,6 +2241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioPlayer: {fileID: 1233637696}
   OnPlayerJumpEvent: {fileID: 11400000, guid: 086ac533512294fba984dd1cf7cbd4a4, type: 2}
+  OnPlayerSwitchButtonPressedEvent: {fileID: 11400000, guid: 9f4472693f1bf4ccb9db174cf08ff651, type: 2}
 --- !u!114 &756626478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4563,11 +4564,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 256096746606937539, guid: 44ae33f36f070468e88b7543300020c2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 771
       objectReference: {fileID: 0}
     - target: {fileID: 256096746606937539, guid: 44ae33f36f070468e88b7543300020c2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 407
       objectReference: {fileID: 0}
     - target: {fileID: 256096746606937539, guid: 44ae33f36f070468e88b7543300020c2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4600,10 +4601,6 @@ PrefabInstance:
     - target: {fileID: 256096746606937539, guid: 44ae33f36f070468e88b7543300020c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4456354337562500268, guid: 44ae33f36f070468e88b7543300020c2, type: 3}
-      propertyPath: clips.Array.data[0].key
-      value: player_jump
       objectReference: {fileID: 0}
     - target: {fileID: 5602470265310608089, guid: 44ae33f36f070468e88b7543300020c2, type: 3}
       propertyPath: m_Name
